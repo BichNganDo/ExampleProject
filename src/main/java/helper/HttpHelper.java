@@ -136,12 +136,11 @@ public class HttpHelper {
         }
 
     }
-    
-    
+
     public static ZHttpResponse sendGetRequest(String url, Map<String, String> data) {
         ZHttpResponse resp = new ZHttpResponse(HttpServletResponse.SC_NOT_FOUND);
         resp.setLink(url);
-           
+
         StringBuilder result = new StringBuilder();
         try {
             String strData = buildParameter(data);
@@ -151,8 +150,7 @@ public class HttpHelper {
             URL ulrConn = new URL(url);
             URLConnection conn = ulrConn.openConnection();
             conn.setConnectTimeout(6000);
-            
-            
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -160,7 +158,7 @@ public class HttpHelper {
             }
             resp.setStatus(HttpServletResponse.SC_OK);
             reader.close();
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             if (ex.getMessage().startsWith("Server returned HTTP response code: 500 for URL")) {
                 resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             } else if (ex.getMessage().startsWith("Server returned HTTP response code: 502 for URL")) {
@@ -174,7 +172,7 @@ public class HttpHelper {
             }
 
             resp.setException("error");
-            
+
         }
         resp.setData(result.toString());
         return resp;
@@ -254,7 +252,7 @@ public class HttpHelper {
         resp.setData(result.toString());
         return resp;
     }
-    
+
     public static String getBodyData(HttpServletRequest req) {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
@@ -262,7 +260,7 @@ public class HttpHelper {
         try {
             InputStream inputStream = req.getInputStream();
             if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 char[] charBuffer = new char[1024];
                 int bytesRead = -1;
                 while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
@@ -283,7 +281,7 @@ public class HttpHelper {
         }
 
         return ret;
-                
+
     }
 
 }

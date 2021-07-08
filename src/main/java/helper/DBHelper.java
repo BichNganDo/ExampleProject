@@ -20,7 +20,8 @@ public class DBHelper {
 
     // JDBC driver name and database URL
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private final String DB_URL = "jdbc:mysql://localhost:3306/clothes_shop"; //INSERT DATABASE NAME
+    private final String DB_NAME = "clothes_shop";
+    private final String DB_URL = "jdbc:mysql://localhost:3306/" + DB_NAME + "?useUnicode=true&characterEncoding=UTF-8"; //INSERT DATABASE NAME
 
     //  Database credentials
     private static final String USER = "root";
